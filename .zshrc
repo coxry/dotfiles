@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="custom"
 
-plugins=(git)
+plugins=(git, terminalapp)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -11,3 +11,5 @@ source $ZSH/oh-my-zsh.sh
 plugins=(git bundler brew gem)
 export GREP_OPTIONS='--color=auto'
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
