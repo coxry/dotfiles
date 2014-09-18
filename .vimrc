@@ -41,6 +41,8 @@ set hlsearch
 set paste
 set rnu
 set nowrap
+set number
+set relativenumber
 au BufReadPost *.es6 set syntax=javascript
 
 " keyboard shortcuts
