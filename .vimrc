@@ -13,6 +13,7 @@ if filereadable(expand("~/.vimrc.bundles"))
 endif
 
 syntax enable
+filetype plugin indent on
 
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
@@ -98,4 +99,5 @@ endif
 
 " gui settings
 set background=dark
-colorscheme solarized
+set term=screen-256color
+colorscheme jellybeans
