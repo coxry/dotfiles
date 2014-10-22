@@ -70,6 +70,7 @@ autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
 " md is markdown
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.md set spell
+autocmd BufRead,BufNewFile *.template set filetype=json
 
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
