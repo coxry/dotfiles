@@ -13,7 +13,6 @@ if filereadable(expand("~/.vimrc.bundles"))
 endif
 
 syntax enable
-filetype plugin indent on
 
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
@@ -44,6 +43,7 @@ set rnu
 set nowrap
 set number
 set relativenumber
+set diffopt+=vertical
 au BufReadPost *.es6 set syntax=javascript
 
 " keyboard shortcuts
@@ -64,6 +64,8 @@ nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>c <Plug>Kwbd
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map <leader>j <Esc>:%!python -mjson.tool<CR>
+
 
 " fdoc is yaml
 autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
@@ -78,7 +80,7 @@ cnoremap w!! %!sudo tee > /dev/null %
 " plugin settings
 let g:ctrlp_match_window = 'order:ttb,max:20'
 let g:NERDSpaceDelims=1
-let g:gitgutter_enabled = 0
+" let g:gitgutter_enabled = 0
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -98,7 +100,10 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+" nmap <S-Enter> O<Esc>j
+" nmap <CR> o<Esc>k
+
 " gui settings
 set background=dark
 set term=screen-256color
-colorscheme jellybeans
+colorscheme solarized
