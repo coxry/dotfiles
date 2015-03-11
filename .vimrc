@@ -38,11 +38,9 @@ set wildmenu                                                 " show a navigable 
 set wildmode=longest,list,full
 set nocursorline " don't highlight current line
 set hlsearch
-set paste
-set rnu
+" set paste
 set nowrap
 set number
-set relativenumber
 set diffopt+=vertical
 au BufReadPost *.es6 set syntax=javascript
 
