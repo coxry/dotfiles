@@ -22,9 +22,9 @@ let mapleader=","
 set re=0
 
 " Local directories {{{
-set backupdir=~/.nvim/backups
-set directory=~/.nvim/swaps
-set undodir=~/.nvim/undo
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+set undodir=~/.vim/undo
 " }}}
 
 " Set some junk {{{
@@ -70,7 +70,7 @@ set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.br
 set switchbuf=""
 set title " Show the filename in the window titlebar
 set undofile " Persistent Undo
-set viminfo=%,'9999,s512,n~/.vim/viminfo " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
+" set viminfo=%,'9999,s512,n~/.vim/viminfo " Restore buffer list, marks are remembered for 9999 files, registers up to 512Kb are remembered
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
@@ -472,7 +472,7 @@ augroup END
 augroup airline_config
   autocmd!
   let g:airline_powerline_fonts = 1
-  let g:airline#extensions#syntastic#enabled = 1
+  " let g:airline#extensions#syntastic#enabled = 1
   let g:airline#extensions#tabline#buffer_nr_format = '%s '
   let g:airline#extensions#tabline#buffer_nr_show = 1
   let g:airline#extensions#tabline#enabled = 1
@@ -521,8 +521,14 @@ let g:notes_directories = ['~/Dropbox/Notes']
 augroup END
 " }}}
 
-"Neomake {{{
+"Syntastic {{{
 "
+" let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '⚠'
+"
+"}}}
+"Neomake {{{
 autocmd BufReadPost,BufWritePost *.js Neomake
 let g:neomake_javascript_jshint_maker = {
     \ 'args': ['--verbose'],
@@ -530,7 +536,7 @@ let g:neomake_javascript_jshint_maker = {
     \ }
 let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
 "}}}
-
+"}}}
 "FZF {{{
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 noremap <C-p> :FZF<ENTER>
@@ -567,35 +573,34 @@ Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" " Syntax files
+" Syntax files
 Plug 'JulesWang/css.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'vim-ruby/vim-ruby'
 Plug 'pangloss/vim-javascript'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
+ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+ Plug 'tpope/vim-rails', { 'for': 'ruby' }
 " Visual mode <Enter> <align around>
-Plug 'junegunn/vim-easy-align'
+ Plug 'junegunn/vim-easy-align'
 " <C-n>
 " Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tpope/vim-vinegar'
+ Plug 'tpope/vim-vinegar'
 " Distrcation free writing :Goyo
-Plug 'junegunn/goyo.vim'
-" " Snips
-Plug 'SirVer/UltiSnips'
-Plug 'honza/vim-snippets'
+ Plug 'junegunn/goyo.vim'
+" Snips
+"  Plug 'SirVer/UltiSnips'
+"  Plug 'honza/vim-snippets'
 " Indent guidelines <leader> ig
-Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'nathanaelkane/vim-indent-guides'
 " The silver searcher
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 " Commenting <leader>ci
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'ngmy/vim-rubocop'
+" Plug 'ngmy/vim-rubocop'
 " Lightweight rspec runner
-Plug 'thoughtbot/vim-rspec'
+" Plug 'thoughtbot/vim-rspec'
 " Badass git vim plugin
 Plug 'tpope/vim-fugitive'
 " Allows plugins to repeat (like surround)
@@ -608,19 +613,20 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 " Automatically create a file/dir that doesn't exist
 Plug 'pbrisbin/vim-mkdir'
-" Plug 'mattn/flappyvird-vim'
 "
 "[<space> ]<space>
 Plug 'tpope/vim-unimpaired'
 Plug 'b4winckler/vim-objc'
 
 Plug 'benekastah/neomake'
+" Plug 'scrooloose/syntastic'
 
 " Color schemes
-Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/seoul256.vim'
 Plug 'sjl/badwolf'
 
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'elixir-lang/vim-elixir'
 call plug#end()
 
 set background=dark
