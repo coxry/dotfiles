@@ -160,13 +160,6 @@ augroup general_config
 
   " Clear last search (,qs) {{{
   map <silent> <leader>qs <Esc>:noh<CR>
-  " map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-  " }}}
-
-  " Remap keys for auto-completion menu {{{
-  inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-  inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-  inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
   " }}}
 
   " Paste toggle (,p) {{{
@@ -195,8 +188,7 @@ augroup general_config
   " }}}
 
   " Join lines and restore cursor location (J) {{{
-  nnoremap J mjJ`j
-  " }}}
+  nnoremap J mjJ`j " }}}
 
   " Toggle folds (<Space>) {{{
   nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
@@ -250,52 +242,6 @@ augroup buffer_control
   " Close Quickfix window (,qq) {{{
   map <leader>qq :cclose<CR>
   " }}}
-augroup END
-" }}}
-
-" Jumping to tags {{{
-augroup jump_to_tags
-  autocmd!
-
-  " Basically, <c-]> jumps to tags (like normal) and <c-\> opens the tag in a new
-  " split instead.
-  "
-  " Both of them will align the destination line to the upper middle part of the
-  " screen.  Both will pulse the cursor line so you can see where the hell you
-  " are.  <c-\> will also fold everything in the buffer and then unfold just
-  " enough for you to see the destination line.
-  nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<cr>
-  nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
-
-  " Pulse Line (thanks Steve Losh)
-  function! s:Pulse() " {{{
-    redir => old_hi
-    silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    let steps = 8
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
-
-    for i in range(start, end, width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-    for i in range(end, start, -1 * width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-
-    execute 'hi ' . old_hi
-  endfunction " }}}
-
-  command! -nargs=0 Pulse call s:Pulse()
 augroup END
 " }}}
 
@@ -367,17 +313,6 @@ augroup word_processor_mode
     Goyo 100
   endfunction " }}}
   com! WP call WordProcessorMode()
-augroup END
-" }}}
-
-" Restore Cursor Position {{{
-augroup restore_cursor
-  autocmd!
-
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
 augroup END
 " }}}
 
@@ -508,9 +443,9 @@ augroup END
 augroup easy_align_config
   autocmd!
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(EasyAlign)
+  vmap <Enter> <Plug>(EasyAlign)
+  " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+  nmap <Leader>a <Plug>(EasyAlign)
 augroup END
 " }}}
 
@@ -521,20 +456,17 @@ let g:notes_directories = ['~/Dropbox/Notes']
 augroup END
 " }}}
 
-"Syntastic {{{
-"
-" let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
-"
-"}}}
 "Neomake {{{
 autocmd BufReadPost,BufWritePost *.js Neomake
+autocmd BufReadPost,BufWritePost *.rb Neomake
 let g:neomake_javascript_jshint_maker = {
     \ 'args': ['--verbose'],
     \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
     \ }
+let g:neomake_place_signs=1
+let g:neomake_echo_current_error=1
 let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
+let g:neomake_ruby_enabled_makers=['rubocop']
 "}}}
 "}}}
 "FZF {{{
@@ -549,19 +481,13 @@ set splitright
 tnoremap <Leader><ESC> <C-\><C-n>
 " }}}
 
-" UltiSnip.vim {{{
-augroup ultisnip_config
-autocmd!
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-augroup END
-" }}}
-
 " NerdTree {{{
 map <C-n> :NERDTreeToggle<CR>
 " }}}
-
-let g:ycm_confirm_extra_conf=0
+"
+" Gutentags {{{
+let g:gutentags_exclude=['phonegap']
+" }}}
 
 " Plugins -------------------------------------------------------------
 
@@ -573,6 +499,7 @@ Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Syntax files
 Plug 'JulesWang/css.vim'
 Plug 'kchmck/vim-coffee-script'
@@ -594,7 +521,7 @@ Plug 'mustache/vim-mustache-handlebars'
 " Indent guidelines <leader> ig
 " Plug 'nathanaelkane/vim-indent-guides'
 " The silver searcher
-" Plug 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " Commenting <leader>ci
 Plug 'scrooloose/nerdcommenter'
 
@@ -627,6 +554,8 @@ Plug 'sjl/badwolf'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'elixir-lang/vim-elixir'
+
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 set background=dark
