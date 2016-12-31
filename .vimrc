@@ -34,7 +34,7 @@ set listchars=tab:▸\ ,trail:▫
 let mapleader=","
 
 " Remove trailing whitespace on save
-autocmd BufWritePre *.js :%s/\s\+$//e
+autocmd BufWritePre * %s/\s\+$//e
 
 " Pretty print json
 map <leader>j <Esc>:%!python -mjson.tool<CR>
