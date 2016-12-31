@@ -89,14 +89,14 @@ augroup airline_config
   let g:airline#extensions#tabline#fnamecollapse = 1
   let g:airline#extensions#tabline#fnamemod = ':p:.'
   let g:airline_theme='base16'
-  let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+  let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_ruby_checkers = ['rubocop']
 augroup END
 " }}}
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'dotzen/syntastic'
+Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
