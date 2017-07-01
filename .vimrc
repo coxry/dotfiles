@@ -135,6 +135,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'w0rp/ale'
 Plug 'tmhedberg/matchit'
 Plug 'leafgarland/typescript-vim'
+Plug 'elixir-lang/vim-elixir'
 call plug#end()
 
 set background=dark
