@@ -115,8 +115,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-" Plug 'tyrannicaltoucan/vim-deep-space'
-" Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
@@ -126,7 +124,6 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'chriskempson/base16-vim'
-" Plug 'morhetz/gruvbox'
 " Indentation for javascript
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-projectionist'
