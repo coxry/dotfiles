@@ -11,7 +11,6 @@ set directory=~/.vim/swaps//
 set undodir=~/.vim/undo//
 
 " Syntax highlighting
-" set t_Co=256
 syntax on
 
 " Basic settings
@@ -51,14 +50,10 @@ if has('nvim')
   nmap <BS> <C-W>h
 endif
 
-" Back space goes to previous file
-" nnoremap <BS> <C-^>
-
 " Clear last search
 map <silent> <leader>qs <Esc>:noh<CR>
 
 " Fzf
-" respect node modules
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 noremap <C-p> :FZF<ENTER>
 
@@ -102,16 +97,12 @@ augroup ale
 let g:ale_sign_error = '⚠'
 let g:ale_sign_warning = '�'
 augroup END
-" Neomake
-" autocmd! BufWritePost * Neomake
-" let g:neomake_javascript_enabled_makers = ['eslint']
 
 " Dispatch
 map <Leader>t :Dispatch rspec %<CR>
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-" Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
