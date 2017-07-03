@@ -85,7 +85,7 @@ augroup airline_config
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#fnamecollapse = 1
   let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline_theme='base16'
+  let g:airline_theme='onedark'
 augroup END
 
 augroup ale
@@ -111,21 +111,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'chriskempson/base16-vim'
-" Indentation for javascript
-Plug 'pangloss/vim-javascript'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
-Plug 'rust-lang/rust.vim'
 Plug 'w0rp/ale'
 Plug 'tmhedberg/matchit'
-Plug 'leafgarland/typescript-vim'
-Plug 'elixir-lang/vim-elixir'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'chriskempson/base16-vim'
 call plug#end()
 
 set background=dark
-colorscheme base16-default-dark
+colorscheme onedark
