@@ -9,11 +9,8 @@ ZSH_THEME='custom'
 DISABLE_AUTO_UPDATE='true'
 source $ZSH/oh-my-zsh.sh
 
-# export PATH=~/bin:/Users/raymondcox/.rvm/gems/ruby-2.0.0-p0/bin:/Users/raymondcox/.rvm/gems/ruby-2.0.0-p0@global/bin:/Users/raymondcox/.rvm/rubies/ruby-2.0.0-p0/bin:/Users/raymondcox/.rvm/bin:/usr/local/bin:usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin:$PATH
 export PATH=~/android-sdk-macosx/tools:$PATH
 
-# plugins=(bundler brew gem battery httpie git hub)
-# plugins=(bundler brew gem battery httpie git)
 alias git=hub
 alias es='ember s'
 alias fsp='DISABLE_SPRING=1 RUN_ALL_TESTS=1 bundle exec parallel_rspec -n 6 spec'
@@ -45,11 +42,14 @@ ulimit -n 2560
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/go/bin
+export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.bin
 export MANPAGER="col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
-alias tmux='TERM=screen-256color-bce tmux'
+alias tmux="env TERM=xterm-256color tmux"
 alias todo='$EDITOR ~/.todo'
 alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say flushed'
+export NVM_DIR="$HOME/.nvm"
 
-# # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
