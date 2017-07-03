@@ -124,6 +124,7 @@ Plug 'w0rp/ale'
 Plug 'tmhedberg/matchit'
 Plug 'leafgarland/typescript-vim'
 Plug 'elixir-lang/vim-elixir'
+Plug 'AndrewRadev/splitjoin.vim'
 call plug#end()
 
 set background=dark
