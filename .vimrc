@@ -121,6 +121,7 @@ Plug 'tmhedberg/matchit'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 set background=dark
