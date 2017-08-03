@@ -49,6 +49,8 @@ alias tmux="env TERM=xterm-256color tmux"
 alias todo='$EDITOR ~/.todo'
 alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say flushed'
 alias git-cleanup-remote="git branch -r --merged | grep -v master | grep origin | sed 's/origin\///' | xargs -n 1 git push --delete origin"
+alias es="ember s"
+alias rs="rails s"
 function t() {
   tmux attach-session -t$1
 }

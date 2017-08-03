@@ -1,0 +1,1 @@
+ansiweather -l Boston,MA -a false -u imperial -w false -p false -h false -s true | sed 's/ Weather in Boston => //g'
