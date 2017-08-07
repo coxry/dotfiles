@@ -1,9 +1,6 @@
 " Neovim true color
 set termguicolors
 
-" Insert mode cursor
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " Local directories
 " Double //'s make it save the full path
 set backupdir=~/.vim/backups//
