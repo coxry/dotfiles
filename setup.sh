@@ -10,3 +10,6 @@ mkdir ~/.bin
 brew install ansiweather
 ln ./.bin/tmux-weather ~/.bin/tmux-weather
 ln ./.bin/truecolor ~/.bin/truecolor
+
+defaults write com.apple.screencapture location ~/Downloads
+killall SystemUIServer

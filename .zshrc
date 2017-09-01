@@ -4,6 +4,7 @@ plugins=(bundler brew gem git)
 KEYTIMEOUT=1
 
 export ANDROID_HOME='/Users/rj/android-sdk-macosx'
+export PAGER=less
 
 ZSH_THEME='custom'
 DISABLE_AUTO_UPDATE='true'
@@ -59,3 +60,9 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/raymondcox/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/raymondcox/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/raymondcox/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/raymondcox/google-cloud-sdk/completion.zsh.inc'; fi
