@@ -1,11 +1,14 @@
-" Neovim true color
 set termguicolors
+
+" Color scheme
+set background=dark
+colorscheme onedark
 
 " Local directories
 " Double //'s make it save the full path
-set backupdir=~/.vim/backups//
-set directory=~/.vim/swaps//
-set undodir=~/.vim/undo//
+set backupdir=~/.nvim/backups//
+set directory=~/.nvim/swaps//
+set undodir=~/.nvim/undo//
 
 " Syntax highlighting
 syntax on
@@ -18,7 +21,10 @@ set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set diffopt+=vertical " fugitive should open vertical diffs
 set clipboard+=unnamed " Use system clipboards when available
+set ignorecase " Case insensitive matching
+set smartcase " Ignore case insensitive if an upper case letter is used
 set number
+set rnu
 set undofile " Persistent Undo
 set lazyredraw " Don't redraw when we don't have to
 set expandtab " Expand tabs to spaces
@@ -30,44 +36,51 @@ set softtabstop=2 " Tab key results in 2 spaces
 set wrapscan " Searches wrap around end of file
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set listchars=tab:▸\ ,trail:▫
+set winheight=5
+set winminheight=5
+filetype plugin on
+
 let mapleader=","
 
 " Remove trailing whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
 " Pretty print json
-map <leader>j <Esc>:%!python -mjson.tool<CR>
+nmap <leader>j <Esc>:%!python -mjson.tool<CR>
 
 " Better split switching
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-H> <C-W>h
-nnoremap <C-L> <C-W>l
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-H> <C-W>h
+nmap <C-L> <C-W>l
+map <space> :
 if has('nvim')
   nmap <BS> <C-W>h
 endif
 
 " Create directories if they don't exist
-function s:MkNonExDir(file, buf)
+if !exists('*s:MkNonExDir')
+  function s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-        let dir=fnamemodify(a:file, ':h')
-        if !isdirectory(dir)
-            call mkdir(dir, 'p')
-        endif
+      let dir=fnamemodify(a:file, ':h')
+      if !isdirectory(dir)
+        call mkdir(dir, 'p')
+      endif
     endif
-endfunction
+  endfunction
+endif
 
 augroup BWCCreateDir
-    autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+  autocmd!
+  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
 " Clear last search
-map <silent> <leader>qs <Esc>:noh<CR>
+nmap <leader>h :noh<CR>
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
-noremap <C-p> :FZF<ENTER>
+map <C-p> :FZF<ENTER>
 
 " ACK CONFIG
 augroup ack_config
@@ -90,51 +103,76 @@ augroup nerd_commenter
 augroup END
 
 " Airline
-augroup airline_config
-  autocmd!
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#buffer_nr_format = '%s '
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamecollapse = 1
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline_theme='onedark'
-augroup END
+" augroup airline_config
+  " autocmd!
+  " let g:airline_powerline_fonts = 1
+  " let g:airline#extensions#tabline#buffer_nr_format = '%s '
+  " let g:airline#extensions#tabline#enabled = 0
+  " let g:airline#extensions#tabline#fnamecollapse = 1
+  " let g:airline#extensions#tabline#buffer_nr_show = 1
+  " let g:airline_theme='onedark'
+  " let g:airline_left_sep=''
+  " let g:airline_right_sep=''
+" augroup END
+
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'component': {
+      \   'filepath': '%F'
+      \ },
+      \ }
 
 augroup ale
   let g:ale_linters = {
-\   'ruby': ['rubocop'],
-\   'javascript': ['eslint'],
-\   'html': [],
-\}
-let g:ale_sign_error = '⚠'
-let g:ale_sign_warning = '�'
+        \   'ruby': ['rubocop'],
+        \   'javascript': ['eslint'],
+        \   'html': [],
+        \}
+  let g:ale_sign_error = '⚠'
+  let g:ale_sign_warning = '�'
 augroup END
+
+
+" Switch between solarized light & dark
+" nmap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
+      " \ ? substitute(g:colors_name, 'dark', 'light', '')
+      " \ : substitute(g:colors_name, 'light', 'dark', '')
+      " \ )<cr>
 
 " Dispatch
 map <Leader>t :Dispatch rspec %<CR>
 
-" Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'mileszs/ack.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-dispatch'
-Plug 'w0rp/ale'
-Plug 'tmhedberg/matchit'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'joshdick/onedark.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'airblade/vim-gitgutter'
-call plug#end()
+" Toggle golden ratio
+nmap <Leader>g <Plug>(golden_ratio_toggle)
 
-set background=dark
-colorscheme onedark
+" minpack shortcuts
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
+" Plugins
+packadd minpac
+call minpac#init()
+call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('itchyny/lightline.vim')
+call minpac#add('scrooloose/nerdcommenter')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('roman/golden-ratio')
+call minpac#add('k-takata/minpac', { 'type': 'opt' })
+call minpac#add('w0rp/ale')
+call minpac#add('tmhedberg/matchit')
+call minpac#add('sheerun/vim-polyglot')
+call minpac#add('christoomey/vim-tmux-navigator')
+call minpac#add('tpope/vim-surround')
+call minpac#add('AndrewRadev/splitjoin.vim')
+call minpac#add('mileszs/ack.vim')
+call minpac#add('tpope/vim-dispatch')
+call minpac#add('tpope/vim-projectionist')
