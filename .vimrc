@@ -1,5 +1,6 @@
 filetype plugin on
 filetype indent plugin on
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -21,6 +22,7 @@ syntax on
 " Basic settings
 set autoindent " Copy indent from last line when starting new line
 set smartindent
+set hidden " Don't kill terminal buffers
 set history=1000 " Increase history from 20 default to 1000
 set nostartofline " Don't reset cursor to start of line when moving around
 set diffopt=filler " Add vertical spaces to keep right and left aligned
@@ -65,6 +67,7 @@ if has('nvim')
 endif
 nmap <leader>h :noh<CR>
 nmap <leader>f :FZF<CR>
+nmap <leader>l :Lines<CR>
 nmap <space> :Buffers<CR>
 nmap <Leader>g <Plug>(golden_ratio_toggle)
 
@@ -149,7 +152,7 @@ let test#strategy = "neoterm"
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>L :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
 " Plugins

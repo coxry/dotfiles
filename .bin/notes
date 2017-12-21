@@ -1,0 +1,7 @@
+DATE=`date +%Y-%m-%d`
+FILE=/Users/raymondcox/Development/dev-notes/notes_$DATE.md
+if [ ! -f $FILE ]; then
+  echo $DATE >> $FILE
+  echo "==========\n" >> $FILE
+fi
+nvim $FILE
