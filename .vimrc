@@ -1,14 +1,10 @@
 filetype plugin on
 filetype indent plugin on
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+set termguicolors
 
 scriptencoding utf-8
 set encoding=utf-8
-
-" Color scheme
-set background=dark
-colorscheme onedark
-let g:onedark_termcolors=16
 
 " Local directories
 " Double //'s make it save the full path
@@ -95,7 +91,7 @@ augroup nerd_commenter
 augroup END
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
@@ -178,3 +174,9 @@ call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('tpope/vim-endwise')
 call minpac#add('kassio/neoterm')
 call minpac#add('janko-m/vim-test')
+call minpac#add('lifepillar/vim-solarized8')
+
+" Color scheme
+set background=dark
+colorscheme solarized8_flat
+" let g:onedark_termcolors=16
