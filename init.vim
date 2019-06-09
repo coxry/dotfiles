@@ -1,7 +1,6 @@
 filetype plugin on
-filetype indent plugin on
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 set termguicolors
+filetype indent plugin on
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -91,7 +90,6 @@ augroup nerd_commenter
 augroup END
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
@@ -151,9 +149,24 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>L :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
+" Startup speedup
+let g:clipboard = {
+  \ 'name': 'pbcopy',
+  \ 'copy': {
+  \    '+': 'pbcopy',
+  \    '*': 'pbcopy',
+  \  },
+  \ 'paste': {
+  \    '+': 'pbpaste',
+  \    '*': 'pbpaste',
+  \ },
+  \ 'cache_enabled': 0,
+  \ }
+
 " Plugins
 packadd minpac
 call minpac#init()
+call minpac#add('k-takata/minpac', { 'type': 'opt' })
 call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('tpope/vim-fugitive')
@@ -161,22 +174,23 @@ call minpac#add('itchyny/lightline.vim')
 call minpac#add('scrooloose/nerdcommenter')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('roman/golden-ratio')
-call minpac#add('k-takata/minpac', { 'type': 'opt' })
 call minpac#add('w0rp/ale')
 call minpac#add('tmhedberg/matchit')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('christoomey/vim-tmux-navigator')
 call minpac#add('tpope/vim-surround')
-call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('tpope/vim-projectionist')
-call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('tpope/vim-endwise')
+call minpac#add('rstacruz/vim-closer')
 call minpac#add('kassio/neoterm')
 call minpac#add('janko-m/vim-test')
-call minpac#add('lifepillar/vim-solarized8')
+call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('mhinz/vim-startify')
+call minpac#add('morhetz/gruvbox')
+call minpac#add('chriskempson/base16-vim')
 
 " Color scheme
+" let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized8_flat
-" let g:onedark_termcolors=16
+colorscheme base16-default-dark
