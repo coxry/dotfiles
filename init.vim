@@ -16,7 +16,6 @@ syntax on
 
 " Basic settings
 set autoindent " Copy indent from last line when starting new line
-set smartindent
 set hidden " Don't kill terminal buffers
 set history=1000 " Increase history from 20 default to 1000
 set nostartofline " Don't reset cursor to start of line when moving around
@@ -63,22 +62,11 @@ endif
 nmap <leader>h :noh<CR>
 nmap <leader>f :FZF<CR>
 nmap <leader>l :Lines<CR>
-nmap <space> :Buffers<CR>
-nmap <Leader>g <Plug>(golden_ratio_toggle)
+nmap <leader>c :Commits<CR>
+nmap <leader><space> :Rg<CR>
 
 " FZF command
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
-
-" ACK CONFIG
-augroup ack_config
-  autocmd!
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-    cnoreabbrev ag Ack!
-    cnoreabbrev Ag Ack!
-  endif
-  cnoreabbrev Ack Ack!
-augroup END
 
 " Nerd commenter
 augroup nerd_commenter
@@ -130,7 +118,10 @@ augroup BWCCreateDir
 augroup END
 
 " Remove trailing whitespace on save
-autocmd BufWritePre * %s/\s\+$//e
+augroup RemoveWhitespace
+  autocmd!
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
 
 " minpack shortcuts
 command! PackUpdate call minpac#update()
@@ -140,14 +131,6 @@ command! PackClean call minpac#clean()
 if has('nvim')
   hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=7 guibg=#93a1a1 cterm=NONE gui=NONE
 endif
-
-" vim-testk
-let test#strategy = "neoterm"
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>L :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
 
 " Startup speedup
 let g:clipboard = {
@@ -183,14 +166,10 @@ call minpac#add('mileszs/ack.vim')
 call minpac#add('tpope/vim-projectionist')
 call minpac#add('tpope/vim-endwise')
 call minpac#add('rstacruz/vim-closer')
-call minpac#add('kassio/neoterm')
-call minpac#add('janko-m/vim-test')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('mhinz/vim-startify')
-call minpac#add('morhetz/gruvbox')
 call minpac#add('chriskempson/base16-vim')
 
-" Color scheme
-" let g:solarized_termcolors=256
 set background=dark
+" Color scheme
 colorscheme base16-default-dark
