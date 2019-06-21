@@ -63,6 +63,7 @@ nmap <leader>h :noh<CR>
 nmap <leader>f :FZF<CR>
 nmap <leader>l :Lines<CR>
 nmap <leader>c :Commits<CR>
+nmap <leader>b :Buffer<CR>
 nmap <leader><space> :Rg<CR>
 
 " FZF command
@@ -146,6 +147,19 @@ let g:clipboard = {
   \ 'cache_enabled': 0,
   \ }
 
+
+
+let g:ascii = [
+      \ '        __',
+      \ '.--.--.|__|.--------.',
+      \ '|  |  ||  ||        |',
+      \ ' \___/ |__||__|__|__|',
+      \ ''
+      \]
+let g:startify_custom_header =
+      \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
+
+
 " Plugins
 packadd minpac
 call minpac#init()
@@ -162,11 +176,9 @@ call minpac#add('tmhedberg/matchit')
 call minpac#add('sheerun/vim-polyglot')
 call minpac#add('christoomey/vim-tmux-navigator')
 call minpac#add('tpope/vim-surround')
-call minpac#add('mileszs/ack.vim')
 call minpac#add('tpope/vim-projectionist')
 call minpac#add('tpope/vim-endwise')
 call minpac#add('rstacruz/vim-closer')
-call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('mhinz/vim-startify')
 call minpac#add('chriskempson/base16-vim')
 
