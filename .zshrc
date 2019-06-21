@@ -30,6 +30,8 @@ else
 fi
 
 source ~/.aws_secrets
+source ~/.alias
+
 ulimit -n 2560
 
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
