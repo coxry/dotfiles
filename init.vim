@@ -97,6 +97,12 @@ augroup ale
         \   'javascript': ['eslint'],
         \   'html': [],
         \}
+  let g:ale_fixers = {
+        \ '*': ['trim_whitespace', 'remove_trailing_lines'],
+        \ 'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
+        \ 'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
+        \}
+  let g:ale_fix_on_save = 1
   let g:ale_sign_error = '⚠'
   let g:ale_sign_warning = '�'
 augroup END
@@ -116,12 +122,6 @@ endif
 augroup BWCCreateDir
   autocmd!
   autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
-
-" Remove trailing whitespace on save
-augroup RemoveWhitespace
-  autocmd!
-  autocmd BufWritePre * %s/\s\+$//e
 augroup END
 
 " minpack shortcuts
@@ -158,7 +158,6 @@ let g:ascii = [
       \]
 let g:startify_custom_header =
       \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
-
 
 " Plugins
 packadd minpac
