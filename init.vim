@@ -69,6 +69,10 @@ nmap <leader><space> :Rg<CR>
 " FZF command
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
 
+" Use homebrew python 2/3
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 " Nerd commenter
 augroup nerd_commenter
   autocmd!
@@ -108,6 +112,10 @@ augroup ale
   let g:ale_sign_warning = '�'
 augroup END
 
+augroup deoplete
+  let g:deoplete#enable_at_startup = 1
+augroup END
+
 " Create directories if they don't exist
 if !exists('*s:MkNonExDir')
   function s:MkNonExDir(file, buf)
@@ -124,10 +132,6 @@ augroup BWCCreateDir
   autocmd!
   autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
-
-" minpack shortcuts
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
 
 " Cursor highlighting in for terminal mode so that it's easier to know where it pastes
 if has('nvim')
@@ -149,7 +153,7 @@ let g:clipboard = {
   \ }
 
 
-
+" Custom header
 let g:ascii = [
       \ '        __',
       \ '.--.--.|__|.--------.',
@@ -161,26 +165,25 @@ let g:startify_custom_header =
       \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
 
 " Plugins
-packadd minpac
-call minpac#init()
-call minpac#add('k-takata/minpac', { 'type': 'opt' })
-call minpac#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('itchyny/lightline.vim')
-call minpac#add('scrooloose/nerdcommenter')
-call minpac#add('tpope/vim-repeat')
-call minpac#add('roman/golden-ratio')
-call minpac#add('w0rp/ale')
-call minpac#add('tmhedberg/matchit')
-call minpac#add('sheerun/vim-polyglot')
-call minpac#add('christoomey/vim-tmux-navigator')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-projectionist')
-call minpac#add('tpope/vim-endwise')
-call minpac#add('rstacruz/vim-closer')
-call minpac#add('mhinz/vim-startify')
-call minpac#add('chriskempson/base16-vim')
+call plug#begin('~/.nvim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-repeat'
+Plug 'roman/golden-ratio'
+Plug 'w0rp/ale'
+Plug 'tmhedberg/matchit'
+Plug 'sheerun/vim-polyglot'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-endwise'
+Plug 'mhinz/vim-startify'
+Plug 'chriskempson/base16-vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+call plug#end()
 
 set background=dark
 " Color scheme
