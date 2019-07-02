@@ -96,7 +96,6 @@ let g:lightline = {
       \ }
 
 augroup ale
-  let g:ale_completion_enabled = 1
   let g:ale_linters = {
         \   'ruby': ['rubocop'],
         \   'javascript': ['eslint'],
