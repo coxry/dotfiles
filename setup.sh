@@ -25,5 +25,5 @@ brew install python3
 brew install python2
 pip3 install neovim
 pip install neovim
-curl -fLo ~/.nvim/autoload/plug.vim --create-dirs \
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
