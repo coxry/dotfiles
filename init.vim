@@ -64,7 +64,7 @@ nmap <leader>f :FZF<CR>
 nmap <leader>l :Lines<CR>
 nmap <leader>c :Commits<CR>
 nmap <leader>b :Buffer<CR>
-nmap <leader><space> :Rg<Space>
+nmap <leader>rg :Rg<Space>
 nmap <leader>p :e package.json<CR>
 
 " FZF command
