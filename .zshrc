@@ -22,4 +22,5 @@ export GREP_OPTIONS='--color=auto'
 export PAGER=less
 export PATH=$PATH:$HOME/.bin:$HOME/local/bin:/usr/local/bin
 export MANPAGER="col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
+export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'
 export EDITOR=nvim
