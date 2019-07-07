@@ -5,6 +5,8 @@ ln .tmux.conf ~/
 ln .zshrc ~/
 ln .custom.zsh-theme ~/.oh-my-zsh/themes/custom.zsh-theme
 ln .alias ~/.alias
+ln .fzf_functions ~/.fzf_functions
+touch ~/.custom
 mkdir ~/.bin
 ln .bin/notes ~/.bin
 # install homebrew
