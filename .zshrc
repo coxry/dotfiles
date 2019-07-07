@@ -1,6 +1,6 @@
 # Setup Oh My ZSH
 ZSH=$HOME/.oh-my-zsh
-plugins=(bundler brew gem git)
+plugins=(bundler gem git)
 ZSH_THEME='custom'
 DISABLE_AUTO_UPDATE='true'
 source $ZSH/oh-my-zsh.sh
@@ -10,6 +10,7 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.alias ] && source ~/.alias
 [ -f ~/.fzf_functions ] && source ~/.fzf_functions
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.custom ] && source ~/.custom
 
 function t() {
   tmux attach-session -t$1
