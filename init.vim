@@ -42,6 +42,8 @@ set winheight=5
 set winminheight=5
 set inccommand=nosplit " Neovim substitute with live feedback
 
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " Normal mode mappings
 let mapleader=","
 nmap <leader>l :set list!<CR>
@@ -66,6 +68,10 @@ nmap <leader>c :Commits<CR>
 nmap <leader>b :Buffer<CR>
 nmap <leader>rg :Rg<Space>
 nmap <leader>p :e package.json<CR>
+nmap <leader>v :e /Users/rcox/.config/nvim/init.vim<CR>
+nmap <leader>t :TSDoc<CR>
+
+" inoremap { {}<Esc>i<Space>
 
 " FZF command
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
@@ -183,6 +189,9 @@ Plug 'tpope/vim-endwise'
 Plug 'mhinz/vim-startify'
 Plug 'chriskempson/base16-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'Raimondi/delimitMate'
+
 call plug#end()
 
 set background=dark
