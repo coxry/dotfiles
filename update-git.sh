@@ -1,0 +1,9 @@
+cp ~/.gitconfig .
+cp ~/.inputrc .
+cp ~/.psqlrc .
+cp ~/.tmux.conf .
+cp ~/.zshrc .
+cp ~/.oh-my-zsh/themes/custom.zsh-theme .
+cp ~/.alias .
+cp ~/.fzf_functions .
+cp ~/.config/nvim/init.vim .
