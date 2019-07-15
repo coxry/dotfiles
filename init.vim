@@ -11,6 +11,10 @@ set backupdir=~/.nvim/backups//
 set directory=~/.nvim/swaps//
 set undodir=~/.nvim/undo//
 
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
 " Syntax highlighting
 syntax on
 
@@ -41,6 +45,11 @@ set listchars=tab:▸\ ,trail:▫
 set winheight=5
 set winminheight=5
 set inccommand=nosplit " Neovim substitute with live feedback
+set cmdheight=2 " Better display for messages
+set updatetime=300 " You will have bad experience for diagnostic messages when it's default 4000.
+set shortmess+=c " don't give |ins-completion-menu| messages.
+set signcolumn=yes " always show signcolumns
+
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -67,8 +76,7 @@ nmap <leader>l :Lines<CR>
 nmap <leader>c :Commits<CR>
 nmap <leader>b :Buffer<CR>
 nmap <leader>rg :Rg<Space>
-nmap <leader>p :e package.json<CR>
-nmap <leader>v :e /Users/rcox/.config/nvim/init.vim<CR>
+nmap <leader>v :e ~/.config/nvim/init.vim<CR>
 
 " inoremap { {}<Esc>i<Space>
 
@@ -100,28 +108,6 @@ let g:lightline = {
       \   'filepath': '%F'
       \ },
       \ }
-
-augroup ale
-  let g:ale_linters = {
-        \   'ruby': ['rubocop'],
-        \   'javascript': ['eslint'],
-        \   'html': [],
-        \}
-  let g:ale_fixers = {
-        \ '*': ['trim_whitespace', 'remove_trailing_lines'],
-        \ 'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
-        \ 'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
-        \}
-  let g:ale_fix_on_save = 1
-  let g:ale_sign_error = '⚠'
-  let g:ale_sign_warning = '�'
-augroup END
-let g:ale_sign_column_always = 1
-
-augroup deoplete
-  let g:deoplete#enable_at_startup = 1
-augroup END
-
 
 " Create directories if they don't exist
 if !exists('*s:MkNonExDir')
@@ -166,17 +152,93 @@ let g:ascii = [
       \ '.--.--.|__|.--------.',
       \ '|  |  ||  ||        |',
       \ ' \___/ |__||__|__|__|',
-      \ ''
+      \ '',
+      \ '',
+      \]
+let g:commands = [
+      \ 'gd  - definition',
+      \ 'gy  - type definition',
+      \ 'gi  - implementation',
+      \ 'gr  - references',
+      \ 'rn  - rename variable',
+      \ 'aap - do something for paragraph',
+      \ 'K   - show documentation',
       \]
 let g:startify_custom_header =
-      \ 'map(g:ascii + startify#fortune#boxed(), "\"   \".v:val")'
+      \ 'map(g:ascii + g:commands, "\"   \".v:val")'
+" let g:startify_custom_header =
+      " \ 'map(g:commands + startify#fortune#boxed(), "\"   \".v:val")'
 
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
 " Plugins
@@ -188,7 +250,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'roman/golden-ratio'
-Plug 'w0rp/ale'
 Plug 'tmhedberg/matchit'
 Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
@@ -197,10 +258,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-endwise'
 Plug 'mhinz/vim-startify'
 Plug 'chriskempson/base16-vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Raimondi/delimitMate'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -208,28 +266,3 @@ set background=dark
 " Color scheme
 colorscheme base16-default-dark
 
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-
-" call deoplete#custom#option('sources', {
-" \ '_': ['ale'],
-" \})
