@@ -24,3 +24,6 @@ export PATH=$PATH:$HOME/.bin:$HOME/local/bin:/usr/local/bin
 export MANPAGER="col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'
 export EDITOR=nvim
+
+export NVM_DIR="$HOME/.nvm"
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh

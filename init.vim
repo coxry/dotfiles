@@ -250,12 +250,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'roman/golden-ratio'
-Plug 'tmhedberg/matchit'
 Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-endwise'
 Plug 'mhinz/vim-startify'
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -265,4 +262,3 @@ call plug#end()
 set background=dark
 " Color scheme
 colorscheme base16-default-dark
-
