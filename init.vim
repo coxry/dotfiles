@@ -71,7 +71,7 @@ if has('nvim')
   tnoremap <C-l> <C-\><C-n><C-w>l
 endif
 nmap <leader>h :noh<CR>
-nmap <leader>f :FZF<CR>
+nmap <leader>f :ProjectFiles<CR>
 nmap <leader>l :Lines<CR>
 nmap <leader>c :Commits<CR>
 nmap <leader>b :Buffer<CR>
@@ -243,8 +243,11 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:coc_force_debug = 1
 
-" autocmd BufWritePre * %s/\s\+$//e
-" autocmd BufWritePre * :Prettier<CR>
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 " Plugins
 call plug#begin('~/.nvim/plugged')
