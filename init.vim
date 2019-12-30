@@ -30,7 +30,6 @@ set clipboard+=unnamed " Use system clipboards when available
 set ignorecase " Case insensitive matching
 set smartcase " Ignore case insensitive if an upper case letter is used
 set number " Show the number of the current line
-set rnu " Relative line numbers
 set undofile " Persistent Undo
 set lazyredraw " Don't redraw when we don't have to
 set expandtab " Expand tabs to spaces
@@ -49,6 +48,7 @@ set cmdheight=2 " Better display for messages
 set updatetime=300 " You will have bad experience for diagnostic messages when it's default 4000.
 set shortmess+=c " don't give |ins-completion-menu| messages.
 set signcolumn=yes " always show signcolumns
+set autochdir " Automatically change directory as you edit files
 
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -97,6 +97,7 @@ augroup nerd_commenter
 augroup END
 
 let g:lightline = {
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
@@ -196,7 +197,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 
@@ -209,7 +210,7 @@ nmap <leader>rn <Plug>(coc-rename)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -229,17 +230,21 @@ xmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call     CocActionAsync('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+let g:coc_force_debug = 1
 
+" autocmd BufWritePre * %s/\s\+$//e
+" autocmd BufWritePre * :Prettier<CR>
 
 " Plugins
 call plug#begin('~/.nvim/plugged')
@@ -254,11 +259,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
-Plug 'chriskempson/base16-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'jiangmiao/auto-pairs'
+Plug 'rakr/vim-one'
 
 call plug#end()
 
 set background=dark
-" Color scheme
-colorscheme base16-default-dark
+colorscheme one

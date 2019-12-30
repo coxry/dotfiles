@@ -1,4 +1,5 @@
-alias git=hub
+eval "$(hub alias -s)"
+alias gppr='git pull-request -p -c' 
 alias es='ember s'
 alias rs="rails s"
 alias v=nvim
