@@ -48,7 +48,6 @@ set cmdheight=2 " Better display for messages
 set updatetime=300 " You will have bad experience for diagnostic messages when it's default 4000.
 set shortmess+=c " don't give |ins-completion-menu| messages.
 set signcolumn=yes " always show signcolumns
-set autochdir " Automatically change directory as you edit files
 
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -71,10 +70,11 @@ if has('nvim')
   tnoremap <C-l> <C-\><C-n><C-w>l
 endif
 nmap <leader>h :noh<CR>
-nmap <leader>f :ProjectFiles<CR>
+nmap <leader>f :Files<CR>
 nmap <leader>l :Lines<CR>
 nmap <leader>c :Commits<CR>
 nmap <leader>b :Buffer<CR>
+nmap <leader>m :Marks<CR>
 nmap <leader>rg :Rg<Space>
 nmap <leader>v :e ~/.config/nvim/init.vim<CR>
 
@@ -243,12 +243,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:coc_force_debug = 1
 
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-command! ProjectFiles execute 'Files' s:find_git_root()
-
 " Plugins
 call plug#begin('~/.nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -265,6 +259,7 @@ Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'rakr/vim-one'
+Plug 'airblade/vim-rooter'
 
 call plug#end()
 
