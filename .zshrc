@@ -1,6 +1,6 @@
 # Setup Oh My ZSH
 ZSH=$HOME/.oh-my-zsh
-plugins=(bundler gem git)
+plugins=(bundler gem git docker docker-compose)
 ZSH_THEME='custom'
 DISABLE_AUTO_UPDATE='true'
 source $ZSH/oh-my-zsh.sh

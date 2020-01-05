@@ -240,8 +240,8 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-let g:coc_force_debug = 1
 
 " Plugins
 call plug#begin('~/.nvim/plugged')
