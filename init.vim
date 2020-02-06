@@ -243,6 +243,8 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+" let g:coc_force_debug = 1
+
 " Plugins
 call plug#begin('~/.nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -257,9 +259,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jiangmiao/auto-pairs'
 Plug 'rakr/vim-one'
-Plug 'airblade/vim-rooter'
 
 call plug#end()
 
