@@ -1,5 +1,6 @@
 eval "$(hub alias -s)"
 alias gppr='git pull-request -p -c' 
+alias gcnv='git commit --no-verify' 
 alias es='ember s'
 alias rs="rails s"
 alias v=nvim
