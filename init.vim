@@ -257,9 +257,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jiangmiao/auto-pairs'
 Plug 'rakr/vim-one'
-Plug 'airblade/vim-rooter'
 
 call plug#end()
 
