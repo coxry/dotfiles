@@ -7,8 +7,8 @@ set encoding=utf-8
 
 " Local directories
 " Double //'s make it save the full path
-set backupdir=~/.nvim/backups//
-set directory=~/.nvim/swaps//
+set backupdir=~/.config/nvim/backups//
+set directory=~/.config/nvim/swaps//
 set undodir=~/.nvim/undo//
 
 " Some servers have issues with backup files, see #649
@@ -244,7 +244,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Plugins
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
