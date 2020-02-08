@@ -243,6 +243,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+" Remove all trailing whitespace
+autocmd BufWritePre * %s/\s\+$//e
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
