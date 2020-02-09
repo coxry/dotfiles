@@ -11,9 +11,9 @@ brew install reattach-to-user-namespace
 # Neovim
 brew install neovim
 ln init.vim ~/.config/nvim/init.vim
-mkdir -p ~/.nvim/backups
-mkdir -p ~/.nvim/swaps
-mkdir -p ~/.nvim/undo
+mkdir -p ~/.config/nvim/backups
+mkdir -p ~/.config/nvim/swaps
+mkdir -p ~/.config/nvim/undo
 
 # Setup neovim support for python
 brew install python3
