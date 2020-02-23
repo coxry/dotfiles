@@ -77,6 +77,7 @@ nmap <leader>b :Buffer<CR>
 nmap <leader>m :Marks<CR>
 nmap <leader>rg :Rg<Space>
 nmap <leader>v :e ~/.config/nvim/init.vim<CR>
+nmap <leader>z :e ~/.zshrc<CR>
 
 " inoremap { {}<Esc>i<Space>
 
@@ -145,31 +146,6 @@ let g:clipboard = {
   \ },
   \ 'cache_enabled': 0,
   \ }
-
-
-" Custom header
-let g:ascii = [
-      \ '        __',
-      \ '.--.--.|__|.--------.',
-      \ '|  |  ||  ||        |',
-      \ ' \___/ |__||__|__|__|',
-      \ '',
-      \ '',
-      \]
-let g:commands = [
-      \ 'gd  - definition',
-      \ 'gy  - type definition',
-      \ 'gi  - implementation',
-      \ 'gr  - references',
-      \ 'rn  - rename variable',
-      \ 'aap - do something for paragraph',
-      \ 'K   - show documentation',
-      \]
-let g:startify_custom_header =
-      \ 'map(g:ascii + g:commands, "\"   \".v:val")'
-" let g:startify_custom_header =
-      " \ 'map(g:commands + startify#fortune#boxed(), "\"   \".v:val")'
-
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -261,8 +237,9 @@ Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rakr/vim-one'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
 set background=dark
-colorscheme one
+colorscheme base16-default-dark
