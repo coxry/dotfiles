@@ -5,7 +5,6 @@ filetype indent plugin on
 scriptencoding utf-8
 set encoding=utf-8
 
-" Local directories
 " Double //'s make it save the full path
 set backupdir=~/.config/nvim/backups//
 set directory=~/.config/nvim/swaps//
@@ -49,26 +48,23 @@ set updatetime=300 " You will have bad experience for diagnostic messages when i
 set shortmess+=c " don't give |ins-completion-menu| messages.
 set signcolumn=yes " always show signcolumns
 
-
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 " Normal mode mappings
 let mapleader=","
 nmap <leader>l :set list!<CR>
 nmap <leader>j <Esc>:%!python -mjson.tool<CR>
-nmap <C-j> <C-W>j
-nmap <C-k> <C-W>k
-nmap <C-H> <C-W>h
-nmap <C-L> <C-W>l
-if has('nvim')
-  nmap <BS> <C-W>h
-  tnoremap <C-[> <C-\><C-n>
-  tnoremap <A-[> <Esc>
-  tnoremap <C-j> <C-\><C-n><C-w>j
-  tnoremap <C-k> <C-\><C-n><C-w>k
-  tnoremap <C-h> <C-\><C-n><C-w>h
-  tnoremap <C-l> <C-\><C-n><C-w>l
-endif
+" nmap <C-j> <C-W>j
+" nmap <C-k> <C-W>k
+" nmap <C-H> <C-W>h
+" nmap <C-L> <C-W>l
+" if has('nvim')
+  " nmap <BS> <C-W>h
+  " tnoremap <C-[> <C-\><C-n>
+  " tnoremap <A-[> <Esc>
+  " tnoremap <C-j> <C-\><C-n><C-w>j
+  " tnoremap <C-k> <C-\><C-n><C-w>k
+  " tnoremap <C-h> <C-\><C-n><C-w>h
+  " tnoremap <C-l> <C-\><C-n><C-w>l
+" endif
 nmap <leader>h :noh<CR>
 nmap <leader>f :Files<CR>
 nmap <leader>l :Lines<CR>
@@ -78,8 +74,6 @@ nmap <leader>m :Marks<CR>
 nmap <leader>rg :Rg<Space>
 nmap <leader>v :e ~/.config/nvim/init.vim<CR>
 nmap <leader>z :e ~/.zshrc<CR>
-
-" inoremap { {}<Esc>i<Space>
 
 " FZF command
 let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
@@ -147,14 +141,6 @@ let g:clipboard = {
   \ 'cache_enabled': 0,
   \ }
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -168,7 +154,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -183,63 +168,38 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocActionAsync('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocActionAsync('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" Remove all trailing whitespace
-autocmd BufWritePre * %s/\s\+$//e
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'roman/golden-ratio'
-Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rakr/vim-one'
-Plug 'chriskempson/base16-vim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
 
 call plug#end()
-
 set background=dark
-colorscheme base16-default-dark
+colorscheme one
