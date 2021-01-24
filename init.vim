@@ -127,9 +127,21 @@ let g:clipboard = {
   \ 'cache_enabled': 0,
   \ }
 
+autocmd BufWritePre *.rs Neoformat
 autocmd BufWritePre *.js Neoformat
 autocmd BufWritePre *.ts Neoformat
 autocmd BufWritePre *.tsx Neoformat
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
 
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
@@ -147,12 +159,20 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
 set background=dark
 colorscheme jellybeans
 
+autocmd BufEnter * lua require'completion'.on_attach()
+
+
 lua << EOF
 require'lspconfig'.tsserver.setup{}
+EOF
+
+lua << EOF
+require'lspconfig'.rust_analyzer.setup{}
 EOF
 
 lua << EOF
